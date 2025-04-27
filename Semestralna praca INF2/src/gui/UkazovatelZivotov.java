@@ -1,3 +1,7 @@
+package gui;
+
+import postavy.Postava;
+
 public class UkazovatelZivotov implements Ukazovatel {
     private Postava postava;
 
@@ -6,7 +10,7 @@ public class UkazovatelZivotov implements Ukazovatel {
     }
 
     @Override
-    public String getDisplay() {
-        return "HP: " + postava.getHp() + " / " + postava.getMaxHp();
+    public String zobraz() {
+        return "HP: " + this.postava.getHp() + " / " + this.postava.getMaxHp();
     }
 }
