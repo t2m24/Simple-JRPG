@@ -4,9 +4,9 @@ public class Hrac extends Postava {
     private int maxMana;
     private int mana;
 
-    public Hrac() {
-        super("Hrac", 100, 40);
-        this.maxMana = 100;
+    public Hrac(String meno, int maxHp, int maxMana) {
+        super(meno, maxHp);
+        this.maxMana = maxMana;
         this.mana = maxMana;
     }
 
@@ -27,5 +27,10 @@ public class Hrac extends Postava {
 
     public void odoberManu(int mnozstvo) {
         this.mana = this.mana - mnozstvo;
+    }
+
+    @Override
+    public void utoc(Postava target) {
+        target.odoberHp(10);
     }
 }

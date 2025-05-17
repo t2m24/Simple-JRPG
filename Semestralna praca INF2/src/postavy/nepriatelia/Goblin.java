@@ -1,14 +1,12 @@
 package postavy.nepriatelia;
 
-import postavy.Postava;
-
 public class Goblin extends Nepriatel {
-    public Goblin(String meno, int maxHp) {
-        super(meno, maxHp);
+
+    public Goblin() {
+        super("Goblin", 100, 5);
     }
 
-    @Override
-    public void utoc(Postava ciel) {
-        ciel.odoberHp(5);
+    public String getCestaKObrazku() {
+        return "/obrazky/goblin.png";
     }
 }

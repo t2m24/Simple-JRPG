@@ -1,18 +1,14 @@
 package postavy;
 
-import java.util.Random;
-
 public abstract class Postava {
     private String meno;
     private int maxHp;
     private int hp;
-    private int sila;
 
-    public Postava(String meno, int maxHp, int sila) {
+    public Postava(String meno, int maxHp) {
         this.meno = meno;
         this.maxHp = maxHp;
         this.hp = maxHp;
-        this.sila = sila;
     }
 
     public String getMeno() {
@@ -23,12 +19,6 @@ public abstract class Postava {
         return this.hp;
     }
 
-    public int getSilaUtoku() {
-        Random r = new Random();
-        double nahodnyFaktor = 0.5 + r.nextDouble();
-        return (int) (this.sila * nahodnyFaktor);
-    }
-
     public int getMaxHp() {
         return this.maxHp;
     }
@@ -36,6 +26,8 @@ public abstract class Postava {
     public void odoberHp(int damage) {
         this.hp = Math.max(0, this.hp - damage);
     }
+
+    public abstract void utoc(Postava target);
 
 
 }
