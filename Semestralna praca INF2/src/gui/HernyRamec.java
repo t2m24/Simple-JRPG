@@ -24,12 +24,13 @@ import javax.swing.JProgressBar;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 import java.util.Objects;
 
 public class HernyRamec {
-    private int aktualneCisloVlny;
-    private Nepriatel[] nepriatelia;
-    private Hrac hrac;
+    private final int aktualneCisloVlny;
+    private HashMap<JButton, Nepriatel> nepriatelia;
+    private final Hrac hrac;
     private Utok zvolenyUtok;
     private JPanel hlavnyPanel;
     private JButton nepriatelBtn1;
@@ -48,7 +49,7 @@ public class HernyRamec {
 
     public HernyRamec(Hrac hrac, Nepriatel nepriatel1, Nepriatel nepriatel2, Nepriatel nepriatel3, Nepriatel nepriatel4, int cisloVlny) {
         this.hrac = new Hrac();
-        this.nepriatelia = new Nepriatel[] {nepriatel1, nepriatel2, nepriatel3, nepriatel4};
+        this.nepriatelia = new HashMap<>();
         this.okno = new JFrame("Vlna " + cisloVlny);
         this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.okno.setContentPane(hlavnyPanel);
@@ -58,6 +59,11 @@ public class HernyRamec {
         nastavObrazokTlacidlu(nepriatelBtn2, nepriatel2);
         nastavObrazokTlacidlu(nepriatelBtn3, nepriatel3);
         nastavObrazokTlacidlu(nepriatelBtn4, nepriatel4);
+
+        this.nepriatelia.put(nepriatelBtn1, nepriatel1);
+        this.nepriatelia.put(nepriatelBtn2, nepriatel2);
+        this.nepriatelia.put(nepriatelBtn3, nepriatel3);
+        this.nepriatelia.put(nepriatelBtn4, nepriatel4);
 
         hpProgressBar.setMaximum(hrac.getMaxHp());
         hpProgressBar.setValue(hrac.getHp());
@@ -132,13 +138,16 @@ public class HernyRamec {
 
         jablko.addActionListener(e -> {
             this.pouziVecZInventara(new Jablko());
+            this.nepriateliaUtok();
         });
 
         lektvarZivota.addActionListener(e -> {
             this.pouziVecZInventara(new LektvarZivota());
+            this.nepriateliaUtok();
         });
         lektvarMany.addActionListener(e -> {
             this.pouziVecZInventara(new LektvarMany());
+            this.nepriateliaUtok();
         });
 
 
@@ -209,10 +218,20 @@ public class HernyRamec {
         this.zobrazManu();
         this.aktualizujTlacidloNepriatela(nepriatel, tlacidlo);
         this.skontrolujKoniecVlny();
+        this.zvolenyUtok = null;
+        this.nepriateliaUtok();
+    }
+
+    private void nepriatelUtokNaHraca(Nepriatel nepriatel, Hrac hrac) {
+        Seknutie nepriatelskyUtok = new Seknutie();
+        nepriatelskyUtok.vykonaj(nepriatel, hrac);
+        this.zobrazHp();
+        this.skontrolujKoniecVlny();
     }
 
     private void aktualizujTlacidloNepriatela(Nepriatel nepriatel, JButton tlacidlo) {
         if (!nepriatel.jeNazive()) {
+            this.nepriatelia.remove(tlacidlo);
             tlacidlo.setVisible(false);
         } else {
             tlacidlo.setText(nepriatel.getMeno() + " " + nepriatel.getHp() + "/" + nepriatel.getMaxHp() + " HP");
@@ -222,10 +241,11 @@ public class HernyRamec {
 
     private void skontrolujKoniecVlny() {
         if (!this.hrac.jeNazive()) {
-            this.nastavVypis("Zomrel si");
+            new ZomrelSiObrazovka();
+            this.zablokujTlacidla();
         }
         boolean vsetciMrtvi = true;
-        for (Nepriatel n : this.nepriatelia) {
+        for (Nepriatel n : this.nepriatelia.values()) {
             if (n.jeNazive()) {
                 vsetciMrtvi = false;
                 break;
@@ -248,14 +268,32 @@ public class HernyRamec {
         this.zobrazHp();
     }
 
-    private void utokNepriatela (Nepriatel nepriatel, JButton tlacidlo) {
-        if (!nepriatel.jeNazive()) {
-            return;
+    private void nepriateliaUtok() {
+        int hpPred = this.hrac.getHp();
+        for (JButton b : this.nepriatelia.keySet()) {
+            Nepriatel n = this.nepriatelia.get(b);
+            if (n.jeNazive()) {
+                this.nepriatelUtokNaHraca(n, this.hrac);
+            }
         }
-        zvolenyUtok.vykonaj(nepriatel, this.hrac);
-        nastavVypis(zvolenyUtok.getVypis());
-        this.zobrazHp();
-        this.aktualizujTlacidloNepriatela(nepriatel, tlacidlo);
-        this.skontrolujKoniecVlny();
+        this.nastavVypis("Nepriatelia zautocili, startil si " + (hpPred - this.hrac.getHp()) + " hp");
+    }
+
+    private void zablokujTlacidla() {
+        for (JButton b : this.nepriatelia.keySet()) {
+            b.setEnabled(false);
+        }
+        utokyBtn.setEnabled(false);
+        magiaBtn.setEnabled(false);
+        inventarBtn.setEnabled(false);
+    }
+
+    private void odomkniTlacidla() {
+        for (JButton b : this.nepriatelia.keySet()) {
+            b.setEnabled(true);
+        }
+        utokyBtn.setEnabled(true);
+        magiaBtn.setEnabled(true);
+        inventarBtn.setEnabled(true);
     }
 }

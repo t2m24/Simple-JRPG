@@ -18,6 +18,6 @@ public class LektvarZivota implements VecVInventari {
     @Override
     public void pouzi(Hrac hrac) {
         this.pocetVyliecenychHp = hrac.getMaxHp() - hrac.getHp();
-        hrac.pridajManu(this.pocetVyliecenychHp);
+        hrac.pridajHp(this.pocetVyliecenychHp);
     }
 }
