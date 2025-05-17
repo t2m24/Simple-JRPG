@@ -23,6 +23,11 @@ public abstract class Postava {
         return this.hp;
     }
 
+    public boolean jeNazive() {
+        return this.hp > 0;
+    }
+
+
     public int getSilaUtoku() {
         Random r = new Random();
         double nahodnyFaktor = 0.5 + r.nextDouble();
@@ -34,8 +39,10 @@ public abstract class Postava {
     }
 
     public void odoberHp(int damage) {
-        this.hp = Math.max(0, this.hp - damage);
+        this.hp = this.hp - damage;
     }
 
-
+    public void pridajHp(int mnozstvo) {
+        this.hp = this.hp + mnozstvo;
+    }
 }

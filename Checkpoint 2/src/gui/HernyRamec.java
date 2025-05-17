@@ -13,6 +13,8 @@ public class HernyRamec extends JFrame {
     private JSplitPane nepriateliaSplit1;
     private JPanel hlavnyPanel;
     private JLabel vypis;
+    private JLabel hpLabel;
+    private JLabel manaLabel;
 
     public HernyRamec() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

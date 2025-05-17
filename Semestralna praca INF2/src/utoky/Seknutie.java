@@ -2,7 +2,10 @@ package utoky;
 
 import postavy.Postava;
 
-public class Seknutie implements Utok{
+public class Seknutie implements Utok {
+    private String menoUtocnik;
+    private String menoCiel;
+    private int poskodeniePosledneho;
 
     @Override
     public String getNazov() {
@@ -10,12 +13,15 @@ public class Seknutie implements Utok{
     }
 
     @Override
-    public String getVypis(Postava utocnik, Postava ciel) {
-        return utocnik.getMeno() + " zautocil na " + ciel.getMeno() + " utokom " + this.getNazov();
+    public String getVypis() {
+        return this.menoUtocnik + " sekol do " + this.menoCiel + ". " + this.menoCiel + " utrpel zranenie " + this.poskodeniePosledneho;
     }
 
     @Override
     public void vykonaj(Postava utocnik, Postava ciel) {
-        ciel.odoberHp(utocnik.getSilaUtoku());
+        this.menoUtocnik = utocnik.getMeno();
+        this.menoCiel = ciel.getMeno();
+        this.poskodeniePosledneho = utocnik.getSilaUtoku();
+        ciel.odoberHp(this.poskodeniePosledneho);
     }
 }

@@ -28,4 +28,8 @@ public class Hrac extends Postava {
     public void odoberManu(int mnozstvo) {
         this.mana = this.mana - mnozstvo;
     }
+
+    public void pridajManu(int mnozstvo) {
+        this.mana = this.mana + mnozstvo;
+    }
 }
