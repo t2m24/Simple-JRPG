@@ -3,6 +3,7 @@ package postavy;
 import java.util.Random;
 
 public abstract class Postava {
+    private static final Random random = new Random();
     private String meno;
     private int maxHp;
     private int hp;
@@ -27,12 +28,12 @@ public abstract class Postava {
         return this.hp > 0;
     }
 
-
     public int getSilaUtoku() {
-        Random r = new Random();
-        double nahodnyFaktor = 0.5 + r.nextDouble();
-        return (int) (this.sila * nahodnyFaktor);
+        double rozptyl = 0.2;
+        double nahodnyFaktor = 1.0 + (random.nextDouble() * 2 - 1) * rozptyl;
+        return (int) Math.round(this.sila * nahodnyFaktor);
     }
+
 
     public int getMaxHp() {
         return this.maxHp;

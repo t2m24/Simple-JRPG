@@ -1,8 +1,6 @@
 package utoky;
 
-import postavy.Hrac;
 import postavy.Postava;
-import postavy.nepriatelia.Nepriatel;
 
 public interface Utok {
     String getNazov();
