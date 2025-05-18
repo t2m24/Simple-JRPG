@@ -3,7 +3,7 @@ package gui;
 import postavy.Hrac;
 
 public class UkazovatelMany implements Ukazovatel {
-    private Hrac hrac;
+    private final Hrac hrac;
 
     public UkazovatelMany(Hrac hrac) {
         this.hrac = hrac;

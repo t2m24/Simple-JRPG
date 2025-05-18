@@ -17,7 +17,7 @@ public class Jablko implements VecVInventari {
 
     @Override
     public void pouzi(Hrac hrac) {
-        this.pocetVyliecenychHp = (int) (hrac.getMaxHp() * 0.50);
+        this.pocetVyliecenychHp = (int)(hrac.getMaxHp() * 0.50);
         if (this.pocetVyliecenychHp +  hrac.getHp() > hrac.getMaxHp()) {
             this.pocetVyliecenychHp = hrac.getMaxHp() - hrac.getHp();
             hrac.pridajHp(this.pocetVyliecenychHp);

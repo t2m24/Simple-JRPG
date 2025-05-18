@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CitacVln {
-    ArrayList<Vlna> nacitaneVlny;
+    private final ArrayList<Vlna> nacitaneVlny;
 
     public CitacVln(File suborSVlnami) {
         this.nacitaneVlny = new ArrayList<>();
@@ -40,9 +40,7 @@ public class CitacVln {
         return switch (nazov) {
             case "goblin" -> new Goblin();
             case "ork" -> new Ork();
-            default -> {
-                throw new RuntimeException("Neznámy typ nepriateľa: " + nazov);
-            }
+            default -> throw new RuntimeException("Neznámy typ nepriateľa: " + nazov);
         };
     }
 

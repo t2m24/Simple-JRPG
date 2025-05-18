@@ -9,13 +9,13 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class HernyPanel extends JPanel {
-    private HernyRamec hernyRamec;
-    private Hrac hrac;
-    private Nepriatel nepriatel;
+    private final HernyRamec hernyRamec;
+    private final Hrac hrac;
+    private final Nepriatel nepriatel;
 
-    private Ukazovatel ukazovatelZivotov;
-    private Ukazovatel ukazovatelMany;
-    private Ukazovatel ukazovatelZivotovNepriatela;
+    private final Ukazovatel ukazovatelZivotov;
+    private final Ukazovatel ukazovatelMany;
+    private final Ukazovatel ukazovatelZivotovNepriatela;
 
     public HernyPanel(HernyRamec hernyRamec) {
         this.hernyRamec = hernyRamec;

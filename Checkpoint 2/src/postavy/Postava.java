@@ -1,8 +1,8 @@
 package postavy;
 
 public abstract class Postava {
-    private String meno;
-    private int maxHp;
+    private final String meno;
+    private final int maxHp;
     private int hp;
 
     public Postava(String meno, int maxHp) {

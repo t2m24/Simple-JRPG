@@ -2,7 +2,7 @@ package utoky;
 
 import postavy.Postava;
 
-public class Bodnutie implements Utok{
+public class Bodnutie implements Utok {
     private String menoUtocnik;
     private String menoCiel;
     private int poskodeniePosledneho;

@@ -3,7 +3,7 @@ package gui;
 import postavy.Postava;
 
 public class UkazovatelZivotov implements Ukazovatel {
-    private Postava postava;
+    private final Postava postava;
 
     public UkazovatelZivotov(Postava postava) {
         this.postava = postava;

@@ -3,8 +3,12 @@ package gui;
 import postavy.Hrac;
 import vlny.VlnaManager;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +22,7 @@ public class VlnaPorazenaRamec {
         JFrame okno = new JFrame();
         okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         okno.setContentPane(this.panel1);
-        okno.setSize(500,500);
+        okno.setSize(500, 500);
 
         this.vlnaPorazenaLabel.setFont(new Font("Arial", Font.BOLD, 40));
         this.koniecButton.setFont(new Font("Arial", Font.BOLD, 28));
@@ -26,7 +30,7 @@ public class VlnaPorazenaRamec {
         this.pokracovatButton.setFont(new Font("Arial", Font.BOLD, 28));
         this.pokracovatButton.setPreferredSize(new Dimension(300, 80));
 
-        pokracovatButton.addActionListener(new ActionListener() {
+        this.pokracovatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 herneOkno.setVisible(false);
@@ -43,7 +47,7 @@ public class VlnaPorazenaRamec {
             }
         });
 
-        koniecButton.addActionListener(new ActionListener() {
+        this.koniecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 herneOkno.setVisible(false);

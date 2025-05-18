@@ -8,10 +8,6 @@ public interface Utok {
 
     void vykonaj(Postava utocnik, Postava ciel);
 
-    default boolean jeMagicky() {
-        return false;
-    }
-
     default int getCenaMany() {
         return 0;
     }

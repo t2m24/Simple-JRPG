@@ -1,7 +1,7 @@
 package postavy;
 
 public class Hrac extends Postava {
-    private int maxMana;
+    private final int maxMana;
     private int mana;
 
     public Hrac(String meno, int maxHp, int maxMana) {

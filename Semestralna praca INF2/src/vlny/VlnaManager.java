@@ -6,9 +6,9 @@ import postavy.nepriatelia.Ork;
 import java.util.ArrayList;
 
 public class VlnaManager {
-    private int pocetVln;
+    private final int pocetVln;
     private int cisloAktualnejVlny;
-    private ArrayList<Vlna> vlny;
+    private final ArrayList<Vlna> vlny;
 
 
     public VlnaManager() {
@@ -34,10 +34,7 @@ public class VlnaManager {
     }
 
     public boolean bolaVlnaPosledna() {
-        if (this.pocetVln == this.cisloAktualnejVlny) {
-            return  true;
-        }
-        return false;
+        return this.pocetVln == this.cisloAktualnejVlny;
     }
 
     public Vlna dajDalsiuVlnu() {

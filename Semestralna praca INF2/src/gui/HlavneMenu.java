@@ -1,15 +1,17 @@
 package gui;
 
 import postavy.Hrac;
-import postavy.nepriatelia.Goblin;
-import postavy.nepriatelia.Ork;
 import vlny.CitacVln;
-import vlny.Vlna;
 import vlny.VlnaManager;
 
-import javax.swing.*;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.FileDialog;
+import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -26,29 +28,29 @@ public class HlavneMenu {
         JFrame okno = new JFrame("Hlavne menu");
         okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         okno.setContentPane(this.panel1);
-        okno.setSize(500,500);
+        okno.setSize(500, 500);
         this.nadpis.setFont(new Font("Arial", Font.BOLD, 40));
 
-        JButton[] tlacidla = {startButton, nacitajVlnyButton, koniecButton};
+        JButton[] tlacidla = {this.startButton, this.nacitajVlnyButton, this.koniecButton};
         for (JButton tlacitko : tlacidla) {
             //nieje moj kod
             tlacitko.setFont(new Font("Arial", Font.BOLD, 28));
             tlacitko.setPreferredSize(new Dimension(300, 80));
         }
 
-        startButton.addActionListener(new ActionListener() {
+        this.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 VlnaManager vlnaManager = new VlnaManager();
                 Hrac hrac = new Hrac();
-                HernyRamec hernyRamec = new HernyRamec(hrac, vlnaManager);
+                new HernyRamec(hrac, vlnaManager);
                 okno.setVisible(false);
                 okno.dispose();
             }
         });
 
 
-        nacitajVlnyButton.addActionListener(new ActionListener() {
+        this.nacitajVlnyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 Frame fileDialogParent = new Frame();
@@ -79,7 +81,7 @@ public class HlavneMenu {
         });
 
 
-        koniecButton.addActionListener(new ActionListener() {
+        this.koniecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 okno.setVisible(false);

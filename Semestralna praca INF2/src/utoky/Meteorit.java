@@ -23,15 +23,10 @@ public class Meteorit implements Utok {
         if (utocnik instanceof Hrac) {
             this.menoUtocnik = utocnik.getMeno();
             this.menoCiel = ciel.getMeno();
-            ((Hrac) utocnik).odoberManu(this.getCenaMany());
-            this.poskodeniePosledneho = (int) (utocnik.getSilaUtoku() * 2.5);
-            ciel.odoberHp(poskodeniePosledneho);
+            ((Hrac)utocnik).odoberManu(this.getCenaMany());
+            this.poskodeniePosledneho = (int)(utocnik.getSilaUtoku() * 2.5);
+            ciel.odoberHp(this.poskodeniePosledneho);
         }
-    }
-
-    @Override
-    public boolean jeMagicky() {
-        return true;
     }
 
     @Override
