@@ -1,9 +1,7 @@
 package gui;
 
 import postavy.Hrac;
-import postavy.nepriatelia.Goblin;
 import postavy.nepriatelia.Nepriatel;
-import postavy.nepriatelia.Ork;
 import utoky.Bodnutie;
 import utoky.Meteorit;
 import utoky.OhnivaGula;
@@ -13,6 +11,8 @@ import veci.Jablko;
 import veci.LektvarMany;
 import veci.LektvarZivota;
 import veci.VecVInventari;
+import vlny.Vlna;
+import vlny.VlnaManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,7 +22,8 @@ import java.util.HashMap;
 import java.util.Objects;
 
 public class HernyRamec {
-    private int aktualneCisloVlny;
+    private VlnaManager vlnaManager;
+    private Vlna aktualnaVlna;
     private HashMap<JButton, Nepriatel> nepriatelia;
     private Hrac hrac;
     private Utok zvolenyUtok;
@@ -44,19 +45,29 @@ public class HernyRamec {
     private JFrame konzolaOkno;
 
 
-    public HernyRamec(Hrac hrac, Nepriatel nepriatel1, Nepriatel nepriatel2, Nepriatel nepriatel3, Nepriatel nepriatel4, int cisloVlny) {
+    public HernyRamec(Hrac hrac, VlnaManager vlnaManager) {
+        this.vlnaManager = vlnaManager;
         this.hrac = hrac;
         this.nepriatelia = new HashMap<>();
-        this.aktualneCisloVlny = cisloVlny;
 
-        this.okno = new JFrame("Vlna " + cisloVlny);
+        try {
+            Vlna vlna = this.vlnaManager.dajDalsiuVlnu();
+            this.aktualnaVlna = vlna;
+        } catch (Exception e) {
+            new NastalaChybaRamec();
+            System.out.println(e.getMessage());
+            return;
+        }
+
+
+        this.okno = new JFrame(this.aktualnaVlna.getVypis());
         this.okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.okno.setContentPane(hlavnyPanel);
 
-        nastavObrazokTlacidlu(nepriatelBtn1, nepriatel1);
-        nastavObrazokTlacidlu(nepriatelBtn2, nepriatel2);
-        nastavObrazokTlacidlu(nepriatelBtn3, nepriatel3);
-        nastavObrazokTlacidlu(nepriatelBtn4, nepriatel4);
+        nastavObrazokTlacidlu(nepriatelBtn1, this.aktualnaVlna.getNepriatel1());
+        nastavObrazokTlacidlu(nepriatelBtn2, this.aktualnaVlna.getNepriatel2());
+        nastavObrazokTlacidlu(nepriatelBtn3, this.aktualnaVlna.getNepriatel3());
+        nastavObrazokTlacidlu(nepriatelBtn4, this.aktualnaVlna.getNepriatel4());
 
         //nieje moj kod
         konzola = new JTextArea(20, 40);
@@ -68,10 +79,10 @@ public class HernyRamec {
         konzolaOkno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         konzolaOkno.add(new JScrollPane(konzola));
 
-        this.nepriatelia.put(nepriatelBtn1, nepriatel1);
-        this.nepriatelia.put(nepriatelBtn2, nepriatel2);
-        this.nepriatelia.put(nepriatelBtn3, nepriatel3);
-        this.nepriatelia.put(nepriatelBtn4, nepriatel4);
+        this.nepriatelia.put(nepriatelBtn1, this.aktualnaVlna.getNepriatel1());
+        this.nepriatelia.put(nepriatelBtn2, this.aktualnaVlna.getNepriatel2());
+        this.nepriatelia.put(nepriatelBtn3, this.aktualnaVlna.getNepriatel3());
+        this.nepriatelia.put(nepriatelBtn4, this.aktualnaVlna.getNepriatel4());
 
         hpProgressBar.setMaximum(hrac.getMaxHp());
         hpProgressBar.setValue(hrac.getHp());
@@ -81,7 +92,7 @@ public class HernyRamec {
 
         this.zobrazHp();
         this.zobrazManu();
-        this.nastavVypis("Toto je vlna " + this.aktualneCisloVlny);
+        this.nastavVypis(this.aktualnaVlna.getVypis());
 
         JPopupMenu utokyMenu = new JPopupMenu();
         JMenuItem seknutie = new JMenuItem("Seknutie - Zakladny utok");
@@ -162,28 +173,28 @@ public class HernyRamec {
         nepriatelBtn1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vykonajUtokNaNepriatela(nepriatel1, nepriatelBtn1);
+                vykonajUtokNaNepriatela(nepriatelBtn1);
             }
         });
 
         nepriatelBtn2.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vykonajUtokNaNepriatela(nepriatel2, nepriatelBtn2);
+                vykonajUtokNaNepriatela(nepriatelBtn2);
             }
         });
 
         nepriatelBtn3.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vykonajUtokNaNepriatela(nepriatel3, nepriatelBtn3);
+                vykonajUtokNaNepriatela(nepriatelBtn3);
             }
         });
 
         nepriatelBtn4.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                vykonajUtokNaNepriatela(nepriatel4, nepriatelBtn4);
+                vykonajUtokNaNepriatela(nepriatelBtn4);
             }
         });
 
@@ -259,7 +270,8 @@ public class HernyRamec {
     }
 
 
-    private void vykonajUtokNaNepriatela(Nepriatel nepriatel, JButton tlacidlo) {
+    private void vykonajUtokNaNepriatela(JButton tlacidlo) {
+        Nepriatel nepriatel = this.nepriatelia.get(tlacidlo);
         if (!hrac.jeNazive()) {
             return;
         }
@@ -306,7 +318,7 @@ public class HernyRamec {
 
     private void skontrolujKoniecVlny() {
         if (!this.hrac.jeNazive()) {
-            new ZomrelSiObrazovka(this.okno, this.konzolaOkno);
+            new ZomrelSiRamec(this.okno, this.konzolaOkno);
             this.zablokujTlacidla();
             return;
         }
@@ -319,15 +331,7 @@ public class HernyRamec {
         }
         if (vsetciMrtvi) {
             this.vypisDoKonzoly("Vlna dokoncena");
-            this.okno.setVisible(false);
-            this.okno.dispose();
-            this.konzolaOkno.setVisible(false);
-            this.konzolaOkno.dispose();
-            Goblin g1 = new Goblin();
-            Ork g2 = new Ork();
-            Ork g3 = new Ork();
-            Goblin g4 = new Goblin();
-            new HernyRamec(this.hrac ,g1, g2, g3, g4, this.aktualneCisloVlny + 1);
+            new VlnaPorazenaRamec(this.hrac ,this.vlnaManager, this.okno, this.konzolaOkno);
         }
     }
 

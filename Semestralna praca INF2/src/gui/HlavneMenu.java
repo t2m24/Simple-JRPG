@@ -3,11 +3,16 @@ package gui;
 import postavy.Hrac;
 import postavy.nepriatelia.Goblin;
 import postavy.nepriatelia.Ork;
+import vlny.CitacVln;
+import vlny.Vlna;
+import vlny.VlnaManager;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class HlavneMenu {
     private JPanel panel1;
@@ -34,12 +39,9 @@ public class HlavneMenu {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                VlnaManager vlnaManager = new VlnaManager();
                 Hrac hrac = new Hrac();
-                Goblin g1 = new Goblin();
-                Goblin g2 = new Goblin();
-                Ork g3 = new Ork();
-                Goblin g4 = new Goblin();
-                HernyRamec hernyRamec = new HernyRamec(hrac, g1, g2, g3, g4, 1);
+                HernyRamec hernyRamec = new HernyRamec(hrac, vlnaManager);
                 okno.setVisible(false);
                 okno.dispose();
             }
@@ -49,7 +51,30 @@ public class HlavneMenu {
         nacitajVlnyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //CitacSuborov citacSuborov = new CitacSuborov();
+                Frame fileDialogParent = new Frame();
+                FileDialog fd = new FileDialog(fileDialogParent, "Vyberte súbor s vlnami", FileDialog.LOAD);
+                fd.setFile("*.txt");
+                fd.setVisible(true);
+
+                String adresar = fd.getDirectory();
+                String subor = fd.getFile();
+                fileDialogParent.dispose();
+
+                if (subor != null) {
+                    File suborSVlnami = new File(adresar, subor);
+                    try {
+                        CitacVln citacVln = new CitacVln(suborSVlnami);
+                        VlnaManager vlnaManager = new VlnaManager(citacVln.getNacitaneVlny());
+                        Hrac hrac = new Hrac();
+                        new HernyRamec(hrac, vlnaManager);
+                    } catch (RuntimeException ex) {
+                        System.err.println("Chyba pri načítaní vĺn: " + ex.getMessage());
+                    }
+                } else {
+                    new NastalaChybaRamec();
+                }
+                okno.setVisible(false);
+                okno.dispose();
             }
         });
 
