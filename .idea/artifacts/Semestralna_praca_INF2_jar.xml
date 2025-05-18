@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Semestralna praca INF2:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/Semestralna_praca_INF2_jar</output-path>
+    <root id="archive" name="Semestralna praca INF2.jar">
+      <element id="module-output" name="Semestralna praca INF2" />
+    </root>
+  </artifact>
+</component>

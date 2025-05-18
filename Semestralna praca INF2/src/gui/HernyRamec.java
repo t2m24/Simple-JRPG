@@ -33,6 +33,10 @@ import java.awt.event.ActionListener;
 import java.util.HashMap;
 import java.util.Objects;
 
+/**
+ * Hlavné herné okno obsahujúce hernú logiku a používateľské rozhranie.
+ * Spravuje interakciu medzi hráčom a nepriateľmi.
+ */
 public class HernyRamec {
     private final VlnaManager vlnaManager;
     private final HashMap<JButton, Nepriatel> nepriatelia;
@@ -55,7 +59,11 @@ public class HernyRamec {
     private JTextArea konzola;
     private JFrame konzolaOkno;
 
-
+    /**
+     * Vytvorí herný rámec s daným hráčom a správcom vĺn.
+     * @param hrac Hráč
+     * @param vlnaManager Správca vĺn nepriateľov
+     */
     public HernyRamec(Hrac hrac, VlnaManager vlnaManager) {
         this.vlnaManager = vlnaManager;
         this.hrac = hrac;
@@ -80,7 +88,7 @@ public class HernyRamec {
         this.nastavObrazokTlacidlu(this.nepriatelBtn3, aktualnaVlna.getNepriatel3());
         this.nastavObrazokTlacidlu(this.nepriatelBtn4, aktualnaVlna.getNepriatel4());
 
-        //nieje moj kod
+        //praca s JTextArea odvodena z tutorialu https://www.geeksforgeeks.org/java-swing-jtextarea/
         this.konzola = new JTextArea(20, 40);
         this.konzola.setEditable(false);
         this.konzola.setLineWrap(true);
@@ -209,7 +217,7 @@ public class HernyRamec {
             }
         });
 
-        //nieje moj kod
+        //Praca s fontom oddvodená z tutorialu, pouzivana v gui triedach https://www.tutorialspoint.com/how-to-change-jlabel-font-in-java
         Font nepriatelFont = new Font("Arial", Font.BOLD, 16);
         this.nepriatelBtn1.setFont(nepriatelFont);
         this.nepriatelBtn2.setFont(nepriatelFont);
@@ -239,13 +247,13 @@ public class HernyRamec {
         this.konzolaOkno.pack();
         this.konzolaOkno.setVisible(true);
 
-        //nieje moj kod
+        //Praca s poziciami okien z dokumentacie https://docs.oracle.com/javase/8/docs/api/java/awt/Component.html#getLocation--
         Point hlavneOknoPozicia = this.okno.getLocation();
         int hlavneOknoSirka = this.okno.getWidth();
         this.konzolaOkno.setLocation(hlavneOknoPozicia.x + hlavneOknoSirka, hlavneOknoPozicia.y);
     }
 
-    //nieje moj kod
+    //Nastavenie ikony tlacidla odvodene z tutorialu https://www.tutorialspoint.com/swing/swing_imageicon.htm
     private void nastavObrazokTlacidlu(JButton tlacidlo, Nepriatel nepriatel) {
         ImageIcon ikona = new ImageIcon(Objects.requireNonNull(HernyRamec.class.getResource(nepriatel.getCestaKObrazku())));
         Image scaled = ikona.getImage().getScaledInstance(100, 100, Image.SCALE_SMOOTH);
@@ -274,8 +282,7 @@ public class HernyRamec {
         this.vypis.setText(vypis);
     }
 
-    //nieje moj kod
-    public void vypisDoKonzoly(String sprava) {
+    private void vypisDoKonzoly(String sprava) {
         this.konzola.append(sprava + "\n");
         this.konzola.setCaretPosition(this.konzola.getDocument().getLength());
     }

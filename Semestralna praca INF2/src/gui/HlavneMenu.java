@@ -16,6 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Hlavné menu hry, ktoré umožňuje spustiť novú hru, načítať vlny zo súboru alebo ukončiť aplikáciu.
+ */
 public class HlavneMenu {
     private JPanel panel1;
     private JButton startButton;
@@ -23,7 +26,9 @@ public class HlavneMenu {
     private JButton koniecButton;
     private JLabel nadpis;
 
-
+    /**
+     * Vytvorí hlavné menu s nastavenými tlačidlami a ich funkcionalitou.
+     */
     public HlavneMenu() {
         JFrame okno = new JFrame("Hlavne menu");
         okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -33,11 +38,13 @@ public class HlavneMenu {
 
         JButton[] tlacidla = {this.startButton, this.nacitajVlnyButton, this.koniecButton};
         for (JButton tlacitko : tlacidla) {
-            //nieje moj kod
             tlacitko.setFont(new Font("Arial", Font.BOLD, 28));
             tlacitko.setPreferredSize(new Dimension(300, 80));
         }
 
+        /**
+         * Akcia pre tlačidlo Štart - spustí novú hru s predvolenými vlnami nepriateľov.
+         */
         this.startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -49,7 +56,9 @@ public class HlavneMenu {
             }
         });
 
-
+        /**
+         * Akcia pre tlačidlo Načítať vlny - umožní výber súboru s vlastnými vlnami nepriateľov.
+         */
         this.nacitajVlnyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,7 +89,9 @@ public class HlavneMenu {
             }
         });
 
-
+        /**
+         * Akcia pre tlačidlo Koniec - ukončí aplikáciu.
+         */
         this.koniecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

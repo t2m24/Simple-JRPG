@@ -9,24 +9,35 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Okno zobrazované po úspešnom dokončení všetkých vĺn nepriateľov.
+ * Ponúka možnosť reštartu hry alebo jej ukončenia.
+ */
 public class VyhralSiRamec {
     private JPanel panel1;
     private JButton restartButton;
     private JButton koniecButton;
     private JLabel vyhralSiLabel;
 
+    /**
+     * Vytvorí výherné okno s možnosťou reštartu alebo ukončenia hry.
+     */
     public VyhralSiRamec() {
         JFrame okno = new JFrame();
         okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         okno.setContentPane(this.panel1);
         okno.setSize(500, 500);
 
+        // Nastavenie štýlu pre komponenty
         this.vyhralSiLabel.setFont(new Font("Arial", Font.BOLD, 40));
         this.koniecButton.setFont(new Font("Arial", Font.BOLD, 28));
         this.koniecButton.setPreferredSize(new Dimension(300, 80));
         this.restartButton.setFont(new Font("Arial", Font.BOLD, 28));
         this.restartButton.setPreferredSize(new Dimension(300, 80));
 
+        /**
+         * Akcia pre tlačidlo Reštart - vráti hráča do hlavného menu.
+         */
         this.restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -36,6 +47,9 @@ public class VyhralSiRamec {
             }
         });
 
+        /**
+         * Akcia pre tlačidlo Koniec - definitívne ukončí aplikáciu.
+         */
         this.koniecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

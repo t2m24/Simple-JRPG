@@ -12,12 +12,23 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * Okno zobrazované po porazení vlny nepriateľov.
+ * Ponúka možnosť pokračovať v hre alebo ju ukončiť.
+ */
 public class VlnaPorazenaRamec {
     private JPanel panel1;
     private JButton pokracovatButton;
     private JButton koniecButton;
     private JLabel vlnaPorazenaLabel;
 
+    /**
+     * Vytvorí okno s oznámením o porazení vlny a možnosťami pokračovania.
+     * @param hrac Hráč s aktuálnymi štatistikami
+     * @param vlnaManager Správca vĺn pre kontrolu progresu
+     * @param herneOkno Referencia na hlavné herné okno
+     * @param konzolaOkno Referencia na konzolové okno
+     */
     public VlnaPorazenaRamec(Hrac hrac, VlnaManager vlnaManager, JFrame herneOkno, JFrame konzolaOkno) {
         JFrame okno = new JFrame();
         okno.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -30,6 +41,9 @@ public class VlnaPorazenaRamec {
         this.pokracovatButton.setFont(new Font("Arial", Font.BOLD, 28));
         this.pokracovatButton.setPreferredSize(new Dimension(300, 80));
 
+        /**
+         * Akcia pre tlačidlo Pokračovať - buď spustí ďalšiu vlnu alebo prejde na výherné okno.
+         */
         this.pokracovatButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -47,6 +61,9 @@ public class VlnaPorazenaRamec {
             }
         });
 
+        /**
+         * Akcia pre tlačidlo Koniec - ukončí hru a zavrie všetky okná.
+         */
         this.koniecButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,6 +75,7 @@ public class VlnaPorazenaRamec {
                 okno.dispose();
             }
         });
+
         okno.setLocationRelativeTo(null);
         okno.setVisible(true);
     }

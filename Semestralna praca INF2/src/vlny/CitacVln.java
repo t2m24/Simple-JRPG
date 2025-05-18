@@ -9,9 +9,16 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * Číta vlny nepriateľov zo súboru.
+ */
 public class CitacVln {
     private final ArrayList<Vlna> nacitaneVlny;
 
+    /**
+     * Vytvorí inštanciu triedy CitacVln a načíta vlny zo zadaného súboru.
+     * @param suborSVlnami Súbor obsahujúci dáta o vlnách.
+     */
     public CitacVln(File suborSVlnami) {
         this.nacitaneVlny = new ArrayList<>();
         int cisloNacitanejVlny = 1;
@@ -36,6 +43,12 @@ public class CitacVln {
         }
     }
 
+    /**
+     * Vytvorí inštanciu nepriateľa na základe jeho názvu.
+     * @param nazov Názov typu nepriateľa.
+     * @return Inštancia triedy Nepriatel.
+     * @throws RuntimeException Ak je zadaný neznámy typ nepriateľa.
+     */
     private Nepriatel vytvorNepriatelazNazvu(String nazov) {
         return switch (nazov) {
             case "goblin" -> new Goblin();
@@ -44,6 +57,10 @@ public class CitacVln {
         };
     }
 
+    /**
+     * Vráti zoznam načítaných vĺn.
+     * @return Zoznam inštancií triedy Vlna.
+     */
     public ArrayList<Vlna> getNacitaneVlny() {
         return new ArrayList<>(this.nacitaneVlny);
     }
