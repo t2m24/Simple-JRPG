@@ -28,9 +28,7 @@ public interface Utok {
 
     /**
      * Vráti cenu many potrebnú na vykonanie útoku.
-     * @return Počet many potrebných na útok (predvolená hodnota 0)
+     * @return Počet many potrebných na útok
      */
-    default int getCenaMany() {
-        return 0;
-    }
+    int getCenaMany();
 }

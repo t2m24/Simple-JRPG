@@ -42,4 +42,13 @@ public class Seknutie implements Utok {
         this.poskodeniePosledneho = utocnik.getSilaUtoku();
         ciel.odoberHp(this.poskodeniePosledneho);
     }
+
+    /**
+     * Vráti cenu many potrebnú na vykonanie útoku.
+     * @return 0 (seknutie nepotrebuje manu)
+     */
+    @Override
+    public int getCenaMany() {
+        return 0;
+    }
 }

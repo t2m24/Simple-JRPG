@@ -30,7 +30,6 @@ public class ZomrelSiRamec {
         okno.setContentPane(this.panel1);
         okno.setSize(500, 500);
 
-        // Nastavenie štýlu pre komponenty
         this.zomrelSiLabel.setFont(new Font("Arial", Font.BOLD, 40));
         this.koniecButton.setFont(new Font("Arial", Font.BOLD, 28));
         this.koniecButton.setPreferredSize(new Dimension(300, 80));
