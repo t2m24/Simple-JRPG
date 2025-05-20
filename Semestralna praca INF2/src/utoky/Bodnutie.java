@@ -43,13 +43,4 @@ public class Bodnutie implements Utok {
         this.poskodeniePosledneho = utocnik.getSilaUtoku() / 2;
         ciel.odoberHp(this.poskodeniePosledneho);
     }
-
-    /**
-     * Vráti cenu many potrebnú na vykonanie útoku.
-     * @return 0 (bodnutie nepotrebuje manu)
-     */
-    @Override
-    public int getCenaMany() {
-        return 0;
-    }
 }

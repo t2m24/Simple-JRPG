@@ -39,7 +39,7 @@ public class CitacVln {
             sc.close();
         } catch (Exception e) {
             new NastalaChybaRamec();
-            throw new RuntimeException("Chyba pri citani suboru s vlnami.", e);
+            throw new RuntimeException("Chyba pri čítaní súboru s vlnami.", e);
         }
     }
 
@@ -53,7 +53,7 @@ public class CitacVln {
         return switch (nazov) {
             case "goblin" -> new Goblin();
             case "ork" -> new Ork();
-            default -> throw new RuntimeException("Neznamy typ nepriatela: " + nazov);
+            default -> throw new RuntimeException("Neznámy typ nepriateľa: " + nazov);
         };
     }
 
