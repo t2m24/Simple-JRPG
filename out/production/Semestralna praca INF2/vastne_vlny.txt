@@ -1,3 +1,0 @@
-//tento riadok nemazat, kazdy riadok je jedna vlna, na kazdy riadok 4 nepriatelia, nepriatelia "goblin", "ork"
-ork goblin ork goblin 
-goblin goblin goblin goblin
